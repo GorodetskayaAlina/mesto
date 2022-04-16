@@ -11,3 +11,18 @@
     align-items: center;
     margin-left: auto;
 }
+
+@media screen and (max-width: 1024px) {
+    .profile__button-refill {
+        width: 130px;
+        height: 45px;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .profile__button-refill {
+        width: 282px;
+        height: 50px;
+        margin: 0 auto;
+    }
+}

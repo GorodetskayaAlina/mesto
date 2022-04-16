@@ -7,3 +7,19 @@
     margin: 22px 0 25px 30px;
     width: 336px;
 }
+
+@media screen and (max-width: 1024px) {
+    .profile__info {
+        margin-left: 20px;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .profile__info {
+        gap: 10px 14px;
+        width: 217px;
+        margin: 26px auto 36px calc(auto + 10px);
+        justify-content: center;
+        justify-items: center;
+    }
+}

@@ -10,3 +10,19 @@
     align-items: center;
     margin-bottom: 10px;
 }
+
+@media screen and (max-width: 1024px) {
+    .profile__button-edit {
+        width: 20px;
+        height: 20px;
+        margin-bottom: 9px;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .profile__button-edit {
+        width: 18px;
+        height: 18px;
+        margin-bottom: 6.5px;
+    }
+}

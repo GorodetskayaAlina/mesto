@@ -4,3 +4,25 @@
     border-bottom: 1px solid #545454;
     margin: 45px auto 40px;
 }
+
+@media screen and (max-width: 1024px) {
+    .header {
+        width: 700px;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .header {
+        width: 420px;
+        min-height: 65px;
+        margin: 35px auto 39px;
+    }
+}
+
+@media screen and (max-width: 425px) {
+    .header {
+        width: 282px;
+        min-height: 56px;
+        margin: 28px auto 38px;
+    }
+}
