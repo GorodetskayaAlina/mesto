@@ -18,7 +18,8 @@
     .profile__info {
         gap: 10px 14px;
         width: 217px;
-        margin: 26px auto 36px calc(auto + 10px);
+        margin: 26px auto 36px calc(50% + 18px);
+        transform: translateX(-50%);
         justify-content: center;
         justify-items: center;
     }

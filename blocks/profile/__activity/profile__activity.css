@@ -10,12 +10,14 @@
     white-space: nowrap;
     overflow: hidden;
     align-self: start;
-    width: 336px;
+    max-width: 294px;
 }
 
 @media screen and (max-width: 768px) {
     .profile__activity {
         font-size: 14px;
         line-height: 17px;
+        max-width: 198px;
+        text-align: center;
     }
 }
