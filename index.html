@@ -24,65 +24,19 @@
             </button>
         </section>
         <section class="grid">
-            <div class="card">
-                <img src="./images/Карачаевск.jpg" alt="Карачаевск" class="card__image">
-                <div class="card__description">
-                    <h2 class="card__name">Карачаевск</h2>
-                    <button class="card__button-like" type="button">
-                    </button>
-                </div>
-            </div>
-            <div class="card">
-                <img src="./images/Эльбрус.jpg" alt="Гора Эльбрус" class="card__image">
-                <div class="card__description">
-                    <h2 class="card__name">Гора Эльбрус</h2>
-                    <button class="card__button-like" type="button">
-                    </button>
-                </div>
-            </div>
-            <div class="card">
-                <img src="./images/Домбай.jpg" alt="Домбай" class="card__image">
-                <div class="card__description">
-                    <h2 class="card__name">Домбай</h2>
-                    <button class="card__button-like" type="button">
-                    </button>
-                </div>
-            </div>
-            <div class="card">
-                <img src="./images/Эльбрус.jpg" alt="Гора Эльбрус" class="card__image">
-                <div class="card__description">
-                    <h2 class="card__name">Гора Эльбрус</h2>
-                    <button class="card__button-like" type="button">
-                    </button>
-                </div>
-            </div>
-            <div class="card">
-                <img src="./images/Домбай.jpg" alt="Домбай" class="card__image">
-                <div class="card__description">
-                    <h2 class="card__name">Домбай</h2>
-                    <button class="card__button-like" type="button">
-                    </button>
-                </div>
-            </div>
-            <div class="card">
-                <img src="./images/Карачаевск.jpg" alt="Карачаевск" class="card__image">
-                <div class="card__description">
-                    <h2 class="card__name">Карачаево-Черкесия</h2>
-                    <button class="card__button-like" type="button">
-                    </button>
-                </div>
-            </div>
+            
         </section>
     </main>
     <footer class="footer">
         <p class="footer__copyrignt">© 2022 Mesto Russia</p>
     </footer>  
-    <div class="popup">
+
+    <div class="popup popup-edit">
         <div class="popup__container">
-            <button class="popup__close hover" type="button"></button>
+            <button class="popup__close popup__close-edit hover" type="button"></button>
             <div class="popup__body">
                 <h2 class="popup__title">Редактировать профиль</h2>
-                <form class="popup__form">
+                <form class="popup__form popup__form-edit">
                     <fieldset class="popup__contact-info" name="profile">
                         <input type="text" name="profilename" class="popup__form-item popup__form-item_user-info_name" placeholder="Ваше имя" required> 
                         <input type="text" name="profilejob" class="popup__form-item popup__form-item_user-info_job" placeholder="Ваш род деятельности" required>
@@ -92,6 +46,43 @@
             </div>
         </div>
     </div>
-    <script src="./script/script.js"></script> 
+
+    <div class="popup popup-refill">
+        <div class="popup__container">
+            <button class="popup__close hover popup__close-refill" type="button"></button>
+            <div class="popup__body">
+                <h2 class="popup__title">Новое место</h2>
+                <form class="popup__form popup__form-refill">
+                    <fieldset class="popup__contact-info" name="profile">
+                        <input type="text" name="cardname" class="popup__form-item popup__form-item_refill-card-name" placeholder="Название" required> 
+                        <input type="text" name="cardurl" class="popup__form-item popup__form-item_refill-card-url" placeholder="Ссылка на картинку" required>
+                    </fieldset>
+                    <button class="popup__save" type="submit">Создать</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="popup popup-card">
+        <div class="popup__container">
+            <button class="popup__close hover popup__close-img" type="button"></button>
+            <img class="popup-card__body" alt="" src="#">
+            </img>
+            <h2 class="popup-card__title"></h2>
+        </div>
+    </div>
+
+    <template id="template-card">
+        <div class="card">
+            <button class="card__button-delete hover" type="button"></button>
+            <img src="#" alt="" class="card__image">
+            <div class="card__description">
+                <h2 class="card__name"></h2>
+                <button class="card__button-like" type="button">
+                </button>
+            </div>
+        </div>
+    </template>
+    <script src="./script/script.js"></script>
 </body>
 </html>
