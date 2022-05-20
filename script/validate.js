@@ -24,7 +24,7 @@ function deleteInputError(form, input, formObject) {
 };
 
 // Функция, которая проверяет валидность поля
-function checkValid (form, input) {
+function checkValid (form, input, formObject) {
     if (!input.validity.valid) {
     // Если поле не проходит валидацию, покажем ошибку
     addInputError(form, input, input.validationMessage, formObject);
@@ -54,7 +54,7 @@ function getButtonActive (button, formObject) {
 }
 
 // Функция, которая управляет активацией кнопки
-function activateSubmitButton (inputList, button) {
+function activateSubmitButton (inputList, button, formObject) {
   if (checkValidAllInput(inputList)) {
     getButtonDisabled(button, formObject);
   } else {
@@ -67,12 +67,12 @@ function tagEventListeners (form, formObject) {
     // массив полей форм
     const inputList = Array.from(form.querySelectorAll(formObject.inputSelector));
     const button = form.querySelector(formObject.submitButtonSelector);
-    activateSubmitButton(inputList, button);
+    activateSubmitButton(inputList, button, formObject);
     // в каждом поле проверяется валидность и активируется кнопка
     inputList.forEach(function (input) {
       input.addEventListener('input', function () {
-        checkValid(form, input)
-        activateSubmitButton(inputList, button);
+        checkValid(form, input, formObject)
+        activateSubmitButton(inputList, button, formObject);
       });
     });
 }; 
