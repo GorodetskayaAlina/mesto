@@ -1,3 +1,14 @@
+import {Card} from './Card.js';
+import {FormValidator} from './FormValidator.js';
+
+const formObject = {
+  formSelector: '.popup__form',
+  inputSelector: '.popup__form-item',
+  submitButtonSelector: '.popup__save',
+  inactiveButtonClass: 'popup__save_disabled',
+  inputErrorClass: 'popup__form-item_type_error',
+  errorClass: 'popup__error_visible'
+};
 const buttonOpeningProfile = document.querySelector('.profile__button-edit');
 const profilePopup = document.querySelector('.popup-edit');
 const buttonClosingProfile = profilePopup.querySelector('.popup__close-edit');
@@ -14,8 +25,14 @@ const buttonClosingCardForm = cardFormModalWindow.querySelector('.popup__close-r
 const formCardElement = cardFormModalWindow.querySelector('.popup__form-refill');
 const popupCardInputValue = cardFormModalWindow.querySelector('.popup__form-item_refill-card-name');
 const popupUrlInputValue = cardFormModalWindow.querySelector('.popup__form-item_refill-card-url');
-const buttonSavingCard = document.querySelector('.popup__save-refill');
-const buttonSavingProfile = document.querySelector('.popup__save-edit');
+const gridSection = document.querySelector('.grid');
+
+//Подключение валидации
+const profileFormValid = new FormValidator(formObject, formProfileElement);
+profileFormValid.enableValidation();
+
+const cardAddPopupValid = new FormValidator(formObject, formCardElement);
+cardAddPopupValid.enableValidation();
 
 //открытие попапа
 function openPopup(popup) {
@@ -26,6 +43,7 @@ function openPopup(popup) {
 
 //закрытие попапа
 function closePopup(popup) {
+  popup.removeEventListener('click', closePopupOverlayClick);
   document.removeEventListener('keydown', closePopupEscClick);
   popup.classList.remove('popup_opened');
 }
@@ -45,17 +63,18 @@ function closePopupEscClick(evt) {
   }
 }  
 
-buttonOpeningProfile.addEventListener('click', function openPopupProfile() {
+//Открытие и закрытие попапа с профилем
+buttonOpeningProfile.addEventListener('click', () => {
   popupNameInputValue.value = profileName.textContent;
   popupJobInputValue.value = profileJob.textContent;
-  getButtonActive(buttonSavingProfile, formObject);
+  profileFormValid.getButtonActive();
   openPopup(profilePopup);
 });
 
-buttonClosingProfile.addEventListener('click', function closePopupProfile() {
+buttonClosingProfile.addEventListener('click', () => {
   closePopup(profilePopup);
-  deleteInputError(formProfileElement, popupNameInputValue, formObject);
-  deleteInputError(formProfileElement, popupJobInputValue, formObject);
+  profileFormValid.deleteInputError(popupNameInputValue);
+  profileFormValid.deleteInputError(popupJobInputValue);
 });
 
 //функция добавляет данные, введенные пользователем, в профиль
@@ -79,21 +98,9 @@ buttonOpeningCardForm.addEventListener('click', function openPopupCardForm() {
 
 buttonClosingCardForm.addEventListener('click', function closePopupCardForm() { 
   closePopup(cardFormModalWindow);
-  deleteInputError(formCardElement, popupCardInputValue, formObject);
-  deleteInputError(formCardElement, popupUrlInputValue, formObject);
+  cardAddPopupValid.deleteInputError(popupCardInputValue);
+  cardAddPopupValid.deleteInputError(popupUrlInputValue);
 });
-
-//функция добавления новых карточек
-function addNewCard(evt) {
-    evt.preventDefault();
-    
-    addCardTemplate({name: popupCardInputValue.value, link: popupUrlInputValue.value});
-    closePopup(cardFormModalWindow);
-    getButtonDisabled(buttonSavingCard, formObject);
-}
-  
-//клик по кнопке пополнения контента
-formCardElement.addEventListener('submit', addNewCard);
 
 // массив карточек
 const initialCards = [
@@ -123,53 +130,37 @@ const initialCards = [
   }
 ];
 
-//нашли темплейт
-const cardTemplate = document.querySelector('#template-card').content;
-const gridSection = document.querySelector('.grid');
+//проходим по массиву карточек
+initialCards.forEach(function (cardElement) {
+  const card = new Card(cardElement, '#template-card', openImageWindowCard);
 
+//Добавляем карточки в секцию
+  gridSection.prepend(card.generateCard());
+});
 
-//функция добавления каждой карточки
-function addCardList(cardElement) {
-  const card = cardTemplate.querySelector('.card').cloneNode(true);
-  const likeButton = card.querySelector('.card__button-like');
-  const buttonDeleteCard = card.querySelector('.card__button-delete');
-  const imageCard = card.querySelector('.card__image');
-  imageCard.src = cardElement.link;
-  imageCard.alt = cardElement.name;
-  card.querySelector('.card__name').textContent = cardElement.name;
+//функция добавления новых карточек
+function addNewCard(evt) {
+    evt.preventDefault();
+    
+    const card = new Card({name: popupCardInputValue.value, link: popupUrlInputValue.value}, '#template-card', openImageWindowCard);
 
-  //реализация лайка
-  likeButton.addEventListener('click', function handleLikeButton (evt) {
-    evt.target.classList.toggle('card__button-like_active');
-    });
+    gridSection.prepend(card.generateCard());
+    closePopup(cardFormModalWindow);
+    cardAddPopupValid.getButtonDisabled();
+}
+  
+//клик по кнопке пополнения контента
+formCardElement.addEventListener('submit', addNewCard);
 
-    //удаление карточки
-    buttonDeleteCard.addEventListener('click', function deleteCard (evt) {
-    evt.target.closest('.card').remove();
-  });
-
-  //открытие и закрытие попапа с картинками
-  imageCard.addEventListener('click', function openImageWindowCard(evt) {
-    popupImageModal.querySelector('.popup-card__body').src = evt.target.src;
-    popupImageModal.querySelector('.popup-card__body').alt = evt.target.alt;
-    popupImageModal.querySelector('.popup-card__title').textContent = evt.target.alt;
+//открытие попапа с карточками
+function openImageWindowCard() {
+    popupImageModal.querySelector('.popup-card__body').src = this._link;
+    popupImageModal.querySelector('.popup-card__body').alt = this._name;
+    popupImageModal.querySelector('.popup-card__title').textContent = this._name;
     openPopup(popupImageModal);
-  });
-
-  return card;
-}
-
-//функция реализации карточек
-function addCardTemplate(cardElement) {
-  gridSection.prepend(addCardList(cardElement)); 
-}
+};
 
 //закрытие попапа с карточками
 buttonClosingImageModal.addEventListener('click', function closeImage () {
   closePopup(popupImageModal);
  });
-
-//проходим по массиву карточек
-initialCards.forEach(function (cardElement) {
-  addCardTemplate(cardElement);
-});
