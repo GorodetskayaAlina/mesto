@@ -1,11 +1,11 @@
 export class FormValidator {
-    constructor(obj, formElement) {
-        this._formSelector = obj.formSelector;
-        this._inputSelector = obj.inputSelector;
-        this._submitButtonSelector = obj.submitButtonSelector;
-        this._inactiveButtonClass = obj.inactiveButtonClass;
-        this._inputErrorClass = obj.inputErrorClass;
-        this._errorClass = obj.errorClass;
+    constructor(validationConfig, formElement) {
+        this._formSelector = validationConfig.formSelector;
+        this._inputSelector = validationConfig.inputSelector;
+        this._submitButtonSelector = validationConfig.submitButtonSelector;
+        this._inactiveButtonClass = validationConfig.inactiveButtonClass;
+        this._inputErrorClass = validationConfig.inputErrorClass;
+        this._errorClass = validationConfig.errorClass;
         this._formElement = formElement;
         this._input = this._formElement.querySelector('.popup__form-item');
         this._inputList = Array.from(this._formElement.querySelectorAll(this._inputSelector));
@@ -21,12 +21,20 @@ export class FormValidator {
     }
 
     // Метод удаляет класс с ошибкой
-    deleteInputError(input) {
+    _deleteInputError(input) {
         const formError = this._formElement.querySelector((`#${input.id}-error`));
         input.classList.remove(this._inputErrorClass);
         formError.classList.remove(this._errorClass);
         formError.textContent = '';
     }
+
+    //Метод удаляет класс с ошибкой у всех инпутов формы
+    deleteFormError() {
+        this._inputList.forEach((input) => {
+            this._deleteInputError(input);
+        });
+    }
+    
 
     // Метод проверяет валидность поля
     _checkValid(input) {
@@ -35,7 +43,7 @@ export class FormValidator {
         this._addInputError(input);
         } else {
         // Если проходит, скроем
-        this.deleteInputError(input);
+        this._deleteInputError(input);
         }
     }
 

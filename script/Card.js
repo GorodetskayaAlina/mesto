@@ -14,35 +14,39 @@ export class Card {
   
     // метод реализации лайка
     _handleLikeButton() {
-      this._element.querySelector('.card__button-like').classList.toggle('card__button-like_active');
+      this._buttonLike.classList.toggle('card__button-like_active');
     }
   
     //метод удаления карточек
     _deleteCard () {
-      this._element.querySelector('.card__button-delete').closest('.card').remove();
+      this._buttonDelete.closest('.card').remove();
     }
   
     //слушатели
     _setEventListeners() {
-      this._element.querySelector('.card__button-like').addEventListener('click', () => {
+      this._buttonLike.addEventListener('click', () => {
         this._handleLikeButton();
       });
   
-      this._element.querySelector('.card__button-delete').addEventListener('click', () => {
+      this._buttonDelete.addEventListener('click', () => {
         this._deleteCard();
       });
   
-      this._element.querySelector('.card__image').addEventListener('click', () => {
+      this._cardImage.addEventListener('click', () => {
         this._openImageWindowCard();
       });
     }
   
     generateCard() {
       this._element = this._getTemplate();
+      this._buttonLike = this._element.querySelector('.card__button-like');
+      this._buttonDelete = this._element.querySelector('.card__button-delete');
+      this._cardImage = this._element.querySelector('.card__image');
+
       this._setEventListeners();
   
-      this._element.querySelector('.card__image').src = this._link;
-      this._element.querySelector('.card__image').alt = this._name;
+      this._cardImage.src = this._link;
+      this._cardImage.alt = this._name;
       this._element.querySelector('.card__name').textContent = this._name;
   
       return this._element;
