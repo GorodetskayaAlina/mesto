@@ -5,15 +5,14 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mesto</title>
-    <link rel="stylesheet" href="./pages/index.css">
 </head>
 <body class="page">
     <header class="header">
-        <img src="./images/logo.svg" alt="Логотип" class="header__logo logo-hover">
+        <img src="<%=require('./images/logo.svg')%>" alt="Логотип" class="header__logo logo-hover">
     </header>
     <main class="content">
         <section class="profile">
-            <img src="./images/avatar.jpg" alt="Фото профиля" class="profile__avatar">
+            <img src="<%=require('./images/avatar.jpg')%>" alt="Фото профиля" class="profile__avatar">
             <div class="profile__info">
                 <h1 class="profile__name">Жак-Ив Кусто</h1>
                 <button class="profile__button-edit hover" type="button">
@@ -94,12 +93,5 @@
             </div>
         </article>
     </template>
-    <script type="module" src="./pages/index.js"></script>
-    <script type="module" src="./components/Card.js"></script>
-    <script type="module" src="./components/FormValidator.js"></script>
-    <script type="module" src="./components/Section.js"></script>
-    <script type="module" src="./components/Popup.js"></script>
-    <script type="module" src="./components/PopupWithImage.js"></script>
-    <script type="module" src="./utils/constants.js"></script>
 </body>
 </html>

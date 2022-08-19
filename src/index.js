@@ -1,11 +1,12 @@
-import {Card} from '../components/Card.js';
-import {FormValidator} from '../components/FormValidator.js';
-import {PopupWithImage} from '../components/PopupWithImage.js';
-import {PopupWithForm} from '../components/PopupWithForm.js';
-import {Section} from '../components/Section.js';
-import {UserInfo} from '../components/UserInfo.js';
+import './pages/index.css';
+import {Card} from '../src/components/Card.js';
+import {FormValidator} from '../src/components/FormValidator.js';
+import {PopupWithImage} from '../src/components/PopupWithImage.js';
+import {PopupWithForm} from '../src/components/PopupWithForm.js';
+import {Section} from '../src/components/Section.js';
+import {UserInfo} from '../src/components/UserInfo.js';
 import {buttonOpeningProfile, formProfileElement, popupNameInputValue, 
-  popupJobInputValue, buttonOpeningCardForm, formCardElement, validationConfig, initialCards}  from '../utils/constants.js';
+  popupJobInputValue, buttonOpeningCardForm, formCardElement, validationConfig, initialCards}  from '../src/utils/constants.js';
 
 //Подключение валидации
 const profileFormValid = new FormValidator(validationConfig, formProfileElement);
