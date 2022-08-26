@@ -7,7 +7,6 @@ export class FormValidator {
         this._inputErrorClass = validationConfig.inputErrorClass;
         this._errorClass = validationConfig.errorClass;
         this._formElement = formElement;
-        this._input = this._formElement.querySelector('.popup__form-item');
         this._inputList = Array.from(this._formElement.querySelectorAll(this._inputSelector));
         this._button = this._formElement.querySelector(this._submitButtonSelector)
     }
@@ -34,64 +33,64 @@ export class FormValidator {
             this._deleteInputError(input);
         });
     }
-    
+
 
     // Метод проверяет валидность поля
     _checkValid(input) {
         if (!input.validity.valid) {
-        // Если поле не проходит валидацию, покажем ошибку
-        this._addInputError(input);
+            // Если поле не проходит валидацию, покажем ошибку
+            this._addInputError(input);
         } else {
-        // Если проходит, скроем
-        this._deleteInputError(input);
+            // Если проходит, скроем
+            this._deleteInputError(input);
         }
     }
 
     // Метод проверяет валидность всех полей
-    _checkValidAllInput () {
-    return this._inputList.some(function (input) {
-        return !input.validity.valid;
-    })
+    _checkValidAllInput() {
+        return this._inputList.some(function (input) {
+            return !input.validity.valid;
+        })
     }
 
     //Метод делает кнопку неактивной
-    getButtonDisabled () {
+    setButtonDisabled() {
         this._button.classList.add(this._inactiveButtonClass);
         this._button.setAttribute('disabled', true);
     }
 
     //Метод делает кнопку активной
-    getButtonActive () {
+    setButtonActive() {
         this._button.classList.remove(this._inactiveButtonClass);
         this._button.removeAttribute('disabled');
     }
 
     // Метод управляет активацией кнопки
-    _activateSubmitButton () {
+    _toggleButtonState() {
         if (this._checkValidAllInput()) {
-            this.getButtonDisabled();
+            this.setButtonDisabled();
         } else {
-            this.getButtonActive();
+            this.setButtonActive();
         }
     }
 
     //Метод добавляет обработчики всем полям формы
-    _tagEventListeners () {
-        this._activateSubmitButton();
+    _setEventListeners() {
+        this._toggleButtonState();
         // в каждом поле проверяется валидность и активируется кнопка
         this._inputList.forEach((input) => {
-        input.addEventListener('input', () => {
-            this._checkValid(input);
-            this._activateSubmitButton();
-        });
+            input.addEventListener('input', () => {
+                this._checkValid(input);
+                this._toggleButtonState();
+            });
         });
     }
 
     //Функция, которая добавляет обработчики всем формам
-    enableValidation () {
+    enableValidation() {
         this._formElement.addEventListener('submit', (evt) => {
             evt.preventDefault();
         });
-        this._tagEventListeners();
-        }
+        this._setEventListeners();
+    }
 }
