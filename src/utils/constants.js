@@ -1,6 +1,9 @@
   export const buttonOpeningProfile = document.querySelector('.profile__button-edit');
   export const profilePopup = document.querySelector('.popup-edit');
   export const formProfileElement = profilePopup.querySelector('.popup__form-edit');
+  export const formProfileAvatar = document.querySelector('.popup__form-avatar');
+  export const profileAvatar = document.querySelector('.profile__avatar');
+  export const profileAvatarButton = document.querySelector('.profile__avatar-button');  
   export const popupNameInputValue = profilePopup.querySelector('.popup__form-item_user-info_name');
   export const popupJobInputValue = profilePopup.querySelector('.popup__form-item_user-info_job');
   export const buttonOpeningCardForm = document.querySelector('.profile__button-refill');

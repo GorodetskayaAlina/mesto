@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="shortcut icon" href="#">
     <title>Mesto</title>
 </head>
 
@@ -15,6 +16,7 @@
     <main class="content">
         <section class="profile">
             <img src="<%=require('./images/avatar.jpg')%>" alt="Фото профиля" class="profile__avatar">
+            <button class="profile__avatar-button"></button>
             <div class="profile__info">
                 <h1 class="profile__name">Жак-Ив Кусто</h1>
                 <button class="profile__button-edit hover" type="button">
@@ -92,14 +94,45 @@
         </div>
     </div>
 
+    <div class="popup popup-confirmation">
+        <div class="popup__container">
+            <button class="popup__close hover popup-confirmation__close" type="button"></button>
+            <div class="popup__body popup-confirmation__body">
+                <h2 class="popup__title popup-confirmation__title">Вы уверены?</h2>
+                <button class="popup__save popup-confirmation__save" type="button">Да</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="popup popup-avatar">
+        <div class="popup__container">
+            <button class="popup__close hover" type="button"></button>
+            <div class="popup__body">
+                <h2 class="popup__title">Обновить аватар</h2>
+                <form class="popup__form popup__form-avatar" novalidate>
+                    <fieldset class="popup__contact-info" name="profile">
+                        <label class="popup__label">
+                            <input id="avatar" type="url" name="avatar"
+                                class="popup__form-item" placeholder="Ссылка" required>
+                            <span id="avatar-error" class="popup__error"></span>
+                        </label>
+                    </fieldset>
+                    <button class="popup__save" type="submit">Сохранить</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
     <template id="template-card">
         <article class="card">
             <button class="card__button-delete hover" type="button"></button>
             <img src="#" alt="" class="card__image">
             <div class="card__description">
                 <h2 class="card__name"></h2>
-                <button class="card__button-like" type="button">
-                </button>
+                <div class="card__like">
+                <button class="card__button-like" type="button"></button>
+                <p class="card__sum-like">0</p>
+                </div>
             </div>
         </article>
     </template>
