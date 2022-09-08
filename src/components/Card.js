@@ -34,13 +34,17 @@ export class Card {
     this._sumLikes.textContent = this._likes.length;
   }
 
+  //метод переключения цвета лайка
+  toggleLikeButton() {
+    this._buttonLike.classList.toggle('card__button-like_active');
+  }
+
   // метод реализации лайка
   _handleLikeButton() {
     if (this.isLiked) {
-    this._buttonLike.classList.add('card__button-like_active');
     this._makeCardLike();
     }
-    else {this._buttonLike.classList.remove('card__button-like_active');
+    else {
     this._deleteCardLike();
     }
   }

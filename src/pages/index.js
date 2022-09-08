@@ -8,7 +8,7 @@ import { Section } from '../components/Section.js';
 import { UserInfo } from '../components/UserInfo.js';
 import {
   buttonOpeningProfile, formProfileElement, popupNameInputValue,
-  popupJobInputValue, buttonOpeningCardForm, formCardElement, validationConfig, formProfileAvatar, profileAvatar, profileAvatarButton
+  popupJobInputValue, buttonOpeningCardForm, formCardElement, validationConfig, formProfileAvatar, profileAvatarButton
 } from '../utils/constants.js';
 import { Api } from '../components/Api.js';
 
@@ -40,6 +40,7 @@ function createCard(cardItem) {
     () => {
       api.makeCardLike(cardItem._id).then((data) => {
         card.updateSumCardLikes(data);
+        card.toggleLikeButton();
       })
         .catch((err) => {
           console.log(err);
@@ -48,6 +49,7 @@ function createCard(cardItem) {
     () => {
       api.deleteCardLike(cardItem._id).then((data) => {
         card.updateSumCardLikes(data);
+        card.toggleLikeButton();
       })
         .catch((err) => {
           console.log(err);
@@ -90,6 +92,7 @@ const popupCardForm = new PopupWithForm('.popup-refill',
       .then((data) => {
         const card = createCard(data);
         cardsList.addItem(card.generateCard());
+        popupCardForm.close();
       })
       .catch((err) => {
         console.log(err);
@@ -134,6 +137,7 @@ const popupProfileForm = new PopupWithForm('.popup-edit',
       .finally(() => {
         popupProfileForm.submitLoading(false);
       });
+      popupProfileForm.close();
   },
   () => { profileFormValid.deleteFormError() });
 
@@ -154,7 +158,7 @@ const popupWithAvatar = new PopupWithForm('.popup-avatar',
     popupWithAvatar.submitLoading(true);
     api.getProfileAvatar(url.avatar)
       .then((data) => {
-        profileAvatar.src = data.avatar;
+        profileUserInfo.changeProfileAvatar(data.avatar);
         popupWithAvatar.close()
       })
       .catch((err) => {
@@ -163,6 +167,7 @@ const popupWithAvatar = new PopupWithForm('.popup-avatar',
       .finally(() => {
         popupWithAvatar.submitLoading(false);
       });
+      popupWithAvatar.close();
   },
   () => { avatarPopupValid.deleteFormError() }
 );

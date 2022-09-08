@@ -4,6 +4,13 @@ export class Api {
     this._headers = options.headers;
   }
 
+  _checkResponse(res) {
+    if (res.ok) {
+      return res.json();
+    }
+    return Promise.reject(`Ошибка: ${res.status}`)
+  }
+
   //Информация о пользователе
   getUserInfo() {
     return fetch(`${this._baseUrl}/users/me`,
@@ -11,17 +18,9 @@ export class Api {
         headers: this._headers,
         method: 'GET',
       })
-      .then((res) => {
-        if (res.ok) {
-          return res.json();
-        }
-        return Promise.reject(`Ошибка: ${res.status}`)
-      })
+      .then(this._checkResponse)
       .then((data) => {
         return data;
-      })
-      .catch(() => {
-        console.log('Не удалось загрузить информацию о пользователе')
       })
   }
 
@@ -35,17 +34,9 @@ export class Api {
           avatar: urlAvatar
         })
       })
-      .then((res) => {
-        if (res.ok) {
-          return res.json();
-        }
-        return Promise.reject(`Ошибка: ${res.status}`)
-      })
+      .then(this._checkResponse)
       .then((data) => {
         return data;
-      })
-      .catch(() => {
-        console.log('Не удалось загрузить аватар')
       })
   }
 
@@ -60,17 +51,9 @@ export class Api {
         }),
         method: 'PATCH',
       })
-      .then((res) => {
-        if (res.ok) {
-          return res.json();
-        }
-        return Promise.reject(`Ошибка: ${res.status}`)
-      })
+      .then(this._checkResponse)
       .then((data) => {
         return data;
-      })
-      .catch(() => {
-        console.log('Не удалось обновить информацию о пользователе')
       })
   }
 
@@ -81,17 +64,9 @@ export class Api {
         headers: this._headers,
         method: 'GET',
       })
-      .then((res) => {
-        if (res.ok) {
-          return res.json();
-        }
-        return Promise.reject(`Ошибка: ${res.status}`)
-      })
+      .then(this._checkResponse)
       .then((data) => {
         return data;
-      })
-      .catch(() => {
-        console.log('Не удалось загрузить фотографии')
       })
   }
 
@@ -106,17 +81,9 @@ export class Api {
         }),
         method: 'POST',
       })
-      .then((res) => {
-        if (res.ok) {
-          return res.json();
-        }
-        return Promise.reject(`Ошибка: ${res.status}`)
-      })
+      .then(this._checkResponse)
       .then((data) => {
         return data;
-      })
-      .catch(() => {
-        console.log('Не удалось загрузить новые карточки')
       })
   }
 
@@ -127,17 +94,9 @@ export class Api {
         headers: this._headers,
         method: 'PUT',
       })
-      .then((res) => {
-        if (res.ok) {
-          return res.json();
-        }
-        return Promise.reject(`Ошибка: ${res.status}`)
-      })
+      .then(this._checkResponse)
       .then((data) => {
         return data;
-      })
-      .catch(() => {
-        console.log('Не удалось поставить лайк')
       })
   }
 
@@ -148,17 +107,9 @@ export class Api {
         headers: this._headers,
         method: 'DELETE',
       })
-      .then((res) => {
-        if (res.ok) {
-          return res.json();
-        }
-        return Promise.reject(`Ошибка: ${res.status}`)
-      })
+      .then(this._checkResponse)
       .then((data) => {
         return data;
-      })
-      .catch(() => {
-        console.log('Не удалось удалить лайк')
       })
   }
 
@@ -169,17 +120,9 @@ export class Api {
         headers: this._headers,
         method: 'DELETE',
       })
-      .then((res) => {
-        if (res.ok) {
-          return res.json();
-        }
-        return Promise.reject(`Ошибка: ${res.status}`)
-      })
+      .then(this._checkResponse)
       .then((data) => {
         return data;
-      })
-      .catch(() => {
-        console.log('Не удалось удалить карточку')
       })
   }
 }

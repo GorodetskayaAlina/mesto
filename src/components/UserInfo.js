@@ -23,4 +23,8 @@ export class UserInfo {
   getUserId() {
     return this._id;
   }
+
+  changeProfileAvatar (link) {
+    this._avatar.src = link;
+  }
 }
