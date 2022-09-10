@@ -130,6 +130,7 @@ const popupProfileForm = new PopupWithForm('.popup-edit',
     api.updateUserInfo(userInfo.profilename, userInfo.profilejob)
       .then((data) => {
         profileUserInfo.setUserInfo(data.name, data.about, data._id, data.avatar);
+        popupProfileForm.close();
       })
       .catch((err) => {
         console.log(err);
@@ -137,7 +138,6 @@ const popupProfileForm = new PopupWithForm('.popup-edit',
       .finally(() => {
         popupProfileForm.submitLoading(false);
       });
-      popupProfileForm.close();
   },
   () => { profileFormValid.deleteFormError() });
 
@@ -167,7 +167,6 @@ const popupWithAvatar = new PopupWithForm('.popup-avatar',
       .finally(() => {
         popupWithAvatar.submitLoading(false);
       });
-      popupWithAvatar.close();
   },
   () => { avatarPopupValid.deleteFormError() }
 );
